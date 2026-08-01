@@ -1,0 +1,118 @@
+.hero-section {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background-color: var(--color-bg, #121212);
+  padding: 60px 40px;
+  box-sizing: border-box;
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-light);
+  font-size: 0.95rem;
+  color: var(--color-accent, #ff3366);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.hero-title {
+  font-family: var(--font-bold);
+  font-size: 3.5rem;
+  color: var(--color-text, #ffffff);
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.hero-description {
+  font-family: var(--font-light);
+  font-size: 1rem;
+  color: var(--color-text-muted, #aaaaaa);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+  letter-spacing: 1px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.hero-btn-primary {
+  padding: 14px 28px;
+  border-radius: 30px;
+  background-color: var(--color-text, #ffffff);
+  color: var(--color-bg, #121212);
+  font-family: var(--font-bold);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.hero-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.hero-btn-secondary {
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: var(--color-text, #ffffff);
+  font-family: var(--font-bold);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.hero-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hero-image-wrapper {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--color-surface, #222222);
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 959px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-content {
+    align-items: center;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-image-wrapper {
+    height: 350px;
+  }
+}

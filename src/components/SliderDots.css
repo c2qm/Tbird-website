@@ -1,0 +1,28 @@
+.slider-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-border);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.dot:hover {
+  background-color: var(--color-text-muted);
+}
+
+.dot.active {
+  background-color: var(--color-accent);
+}

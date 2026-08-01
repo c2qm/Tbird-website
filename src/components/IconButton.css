@@ -1,0 +1,19 @@
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  background-color: rgba(254, 254, 254, 0.2);
+  color: var(--color-text);
+}
+
+.icon-btn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border-color: var(--color-accent);
+}

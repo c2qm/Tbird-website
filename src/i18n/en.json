@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Best Modern Products",
+    "subtitle": "Shop now and get the best offers and prices",
+    "cta": "Browse Products"
+  }
+}

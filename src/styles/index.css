@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'Coolvetica-Light';
+  src: url('../fonts/Coolvetica-Light-Regular.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Coolvetica-Regular';
+  src: url('../fonts/Coolvetica-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Coolvetica-Bold';
+  src: url('../fonts/Coolvetica-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --color-bg: #1e1e1e;
+  --color-surface: #1f1f1f;
+  --color-surface-2: #161616;
+  --color-primary: #0f0f0f;
+
+  --color-accent: #34f1d1;
+  --color-accent-soft: rgba(52, 241, 209, 0.12);
+
+  --color-text: #fefefe;
+  --color-text-light: #fefefe;
+  --color-text-muted: #b8b6b3;
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --font-light: 'Coolvetica-Light';
+  --font-regular: 'Coolvetica-Regular';
+  --font-bold: 'Coolvetica-Bold';
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+  --gradient-bg: radial-gradient(circle at 50% 0%, #1a1a1d 0%, #0d0d0e 60%);
+}
+
+body {
+  font-family: var(--font-light);
+  background: var(--gradient-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}

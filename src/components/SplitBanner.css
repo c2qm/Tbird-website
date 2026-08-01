@@ -1,0 +1,52 @@
+.split-banner {
+  display: flex;
+  width: 100%;
+}
+
+.split-banner-item {
+  flex: 1;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 32px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.split-banner-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.split-banner-subtitle {
+  font-family: var(--font-regular);
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
+  color: var(--color-text);
+}
+
+.split-banner-title {
+  font-family: var(--font-bold);
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .split-banner {
+    flex-direction: column;
+  }
+
+  .split-banner-item {
+    min-height: 400px;
+  }
+}
