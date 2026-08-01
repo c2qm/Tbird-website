@@ -21,8 +21,9 @@
 }
 
 .navbar-logo img {
-  height: 28px;
+  height: 48px;
   width: auto;
+  margin-top: 10px;
 }
 
 .navbar-links {
@@ -203,4 +204,75 @@
   .navbar-links {
     display: none;
   }
+}
+
+.user-menu-wrapper {
+  position: relative;
+}
+
+.user-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-bold);
+  font-size: 0.75rem;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  min-width: 160px;
+  z-index: 50;
+}
+
+.user-dropdown-name {
+  font-family: var(--font-regular);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: var(--color-text-muted);
+}
+
+.user-dropdown button {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  padding: 8px;
+  cursor: pointer;
+  font-family: var(--font-light);
+}
+.user-dropdown button:hover {
+  border-color: var(--color-accent);
+}
+
+.icon-button {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--color-accent);
+  color: #0f0f0f;
+  font-size: 0.65rem;
+  font-family: var(--font-bold);
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
 }

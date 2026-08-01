@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import './SplitBanner.css';
 
@@ -14,8 +15,10 @@ interface SplitBannerProps {
 }
 
 export default function SplitBanner({ items }: SplitBannerProps) {
+  const navigate = useNavigate();
+
   return (
-    <section className="split-banner">
+    <section id="split-banner" className="split-banner">
       {items.map((item) => (
         <div
           key={item.id}
@@ -25,7 +28,9 @@ export default function SplitBanner({ items }: SplitBannerProps) {
           <div className="split-banner-content">
             {item.subtitle && <span className="split-banner-subtitle">{item.subtitle}</span>}
             <h2 className="split-banner-title">{item.title}</h2>
-            <Button variant="primary">{item.cta.text}</Button>
+            <Button variant="primary" onClick={() => navigate(item.cta.link)}>
+              {item.cta.text}
+            </Button>
           </div>
         </div>
       ))}

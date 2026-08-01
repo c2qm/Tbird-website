@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import IconButton from './IconButton';
 import SliderDots from './SliderDots';
@@ -22,6 +23,7 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isPlaying) {
@@ -50,7 +52,14 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
     setIsPlaying((prev) => !prev);
   };
 
-  const currentSlide = slides[activeIndex];
+  const handleCtaClick = (link: string) => {
+    if (link.startsWith('#')) {
+      const target = document.querySelector(link);
+      target?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(link);
+    }
+  };
 
   return (
     <section className="hero-slider">
@@ -77,9 +86,13 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
                 <h1 className="hero-title">{slide.title}</h1>
                 <p className="hero-description">{slide.description}</p>
                 <div className="hero-actions">
-                  <Button variant="primary">{slide.primaryCta.text}</Button>
+                  <Button variant="primary" onClick={() => handleCtaClick(slide.primaryCta.link)}>
+                    {slide.primaryCta.text}
+                  </Button>
                   {slide.secondaryCta && (
-                    <Button variant="secondary">{slide.secondaryCta.text}</Button>
+                    <Button variant="secondary" onClick={() => handleCtaClick(slide.secondaryCta!.link)}>
+                      {slide.secondaryCta.text}
+                    </Button>
                   )}
                 </div>
               </div>
@@ -89,11 +102,7 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
       </div>
 
       <div className="hero-controls">
-        <SliderDots
-          total={slides.length}
-          activeIndex={activeIndex}
-          onDotClick={goToSlide}
-        />
+        <SliderDots total={slides.length} activeIndex={activeIndex} onDotClick={goToSlide} />
 
         <div className="hero-nav-buttons">
           <IconButton

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
+import { categories } from '../data/categories';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -7,42 +9,33 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(null);
 
-  const menuData: Record<string, string[]> = {
-    "Limited TimeLimited Time": ["25% off Select Styles", "Up to 40% Off"],
-    "Medical Clothing": ["Scrubs", "Lab Coats", "Medical Caps", "Compression Socks"],
-    "Sport Clothing": ["Running Gear", "Training Tops", "Gym Shorts", "Tracksuits", "Compression Wear"],
-    "Accessories": ["All Accessories", "Socks", "Bags & Backpacks", "Hats & Headwear"],
-  };
+  const activeCategory = categories.find((c) => c.slug === activeCategorySlug) ?? null;
 
-  const categories = ["Limited TimeLimited Time", "Medical Clothing", "Sport Clothing", "Accessories",];
-
-  const handleCategoryClick = (category: string) => {
-    if (menuData[category]) {
-      setActiveCategory(category);
-    }
+  const handleCategoryClick = (slug: string) => {
+    setActiveCategorySlug(slug);
   };
 
   const handleClose = () => {
-    setActiveCategory(null);
+    setActiveCategorySlug(null);
     onClose();
   };
 
   return (
     <>
-      <div 
-        className={`sidebar-overlay ${isOpen ? 'active' : ''}`} 
+      <div
+        className={`sidebar-overlay ${isOpen ? 'active' : ''}`}
         onClick={handleClose}
       />
       <aside className={`sidebar-container ${isOpen ? 'active' : ''}`}>
         <div className="sidebar-header">
           {activeCategory ? (
-            <button className="sidebar-back-btn" onClick={() => setActiveCategory(null)}>
+            <button className="sidebar-back-btn" onClick={() => setActiveCategorySlug(null)}>
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
-              {activeCategory}
+              {activeCategory.name}
             </button>
           ) : (
             <h3 className="sidebar-title">Menu</h3>
@@ -59,13 +52,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className={`sidebar-content-wrapper ${activeCategory ? 'sub-view' : ''}`}>
             <div className="sidebar-main-menu">
               {categories.map((category) => (
-                <button 
-                  key={category} 
+                <button
+                  key={category.slug}
                   className="sidebar-link"
-                  onClick={() => handleCategoryClick(category)}
+                  onClick={() => handleCategoryClick(category.slug)}
                 >
-                  <span>{category}</span>
-                  {menuData[category] && (
+                  <span>{category.name}</span>
+                  {category.subcategories.length > 0 && (
                     <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
@@ -75,10 +68,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
 
             <div className="sidebar-submenu">
-              {activeCategory && menuData[activeCategory]?.map((subItem, index) => (
-                <span key={index} className="sidebar-link">
-                  {subItem}
-                </span>
+              {activeCategory?.subcategories.map((sub) => (
+                <Link
+                  key={sub.slug}
+                  to={`/category/${activeCategory.slug}/${sub.slug}`}
+                  className="sidebar-link"
+                  onClick={handleClose}
+                >
+                  {sub.name}
+                </Link>
               ))}
             </div>
           </div>

@@ -1,31 +1,17 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import './MegaMenu.css';
+import { categories } from '../data/categories';
 
 interface MegaMenuProps {
   isOpen: boolean;
+  activeCategory: string | null;
 }
 
-export default function MegaMenu({ isOpen }: MegaMenuProps) {
-  if (!isOpen) return null;
+export default function MegaMenu({ isOpen, activeCategory }: MegaMenuProps) {
+  if (!isOpen || !activeCategory) return null;
 
-  const menuData = [
-    {
-      title: "Limited Time",
-      items: ["25% off Select Styles", "Up to 40% Off"]
-    },
-    {
-      title: "Medical Clothing",
-      items: ["Scrubs", "Lab Coats", "Medical Caps", "Compression Socks"]
-    },
-    {
-      title: "Sport Clothing",
-      items: ["Running Gear", "Training Tops", "Gym Shorts", "Tracksuits", "Compression Wear"]
-    },
-    {
-      title: "Accessories",
-      items: ["All Accessories", "Socks", "Bags & Backpacks", "Hats & Headwear"]
-    }
-  ];
+  const category = categories.find((c) => c.slug === activeCategory);
+  if (!category) return null;
 
   return (
     <div className="mega-menu">
@@ -33,19 +19,26 @@ export default function MegaMenu({ isOpen }: MegaMenuProps) {
         <div className="mega-column">
           <h4>Highlights</h4>
           <ul>
-            <li><a href="#">New Arrivals</a></li>
+            <li>
+              <Link to={`/category/${category.slug}`}>
+                All {category.name}
+              </Link>
+            </li>
           </ul>
         </div>
-        {menuData.map((col, idx) => (
-          <div className="mega-column" key={idx}>
-            <h4>{col.title}</h4>
-            <ul>
-              {col.items.map((item, i) => (
-                <li key={i}><a href="#">{item}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
+
+        <div className="mega-column">
+          <h4>{category.name}</h4>
+          <ul>
+            {category.subcategories.map((sub) => (
+              <li key={sub.slug}>
+                <Link to={`/category/${category.slug}/${sub.slug}`}>
+                  {sub.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
