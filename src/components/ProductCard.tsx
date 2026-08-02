@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link to={`/product/${product.id}`} className="product-card">
       <div className="product-card-image-wrapper">
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.name} loading="lazy" />
 
         <button
           className={`product-card-wishlist-btn ${inWishlist ? 'active' : ''}`}
@@ -46,13 +46,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </button>
-
-        <button className="product-card-add-btn" onClick={handleAddToCart} aria-label="Add to cart">
-          Add to Cart
-        </button>
       </div>
       <h3 className="product-card-name">{product.name}</h3>
       <p className="product-card-price">${product.price}</p>
+
+      <button className="product-card-add-btn" onClick={handleAddToCart} aria-label="Add to cart">
+        Add to Cart
+      </button>
     </Link>
   );
 }

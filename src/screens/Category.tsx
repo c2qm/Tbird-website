@@ -20,7 +20,7 @@ export default function Category() {
   const pageTitle = subcategory ? subcategory.name : category?.name ?? 'Category';
 
   return (
-    <div className="category-page">
+    <div className="category-page page-fade-in">
       <h1 className="category-title">{pageTitle}</h1>
 
       {filteredProducts.length === 0 ? (
@@ -28,7 +28,9 @@ export default function Category() {
       ) : (
         <div className="category-grid">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} className="stagger-item">
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       )}

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SearchPanel.css';
+import { products } from '../data/products';
 
 interface SearchPanelProps {
   isOpen: boolean;
@@ -8,8 +10,22 @@ interface SearchPanelProps {
 
 export default function SearchPanel({ isOpen, onClose }: SearchPanelProps) {
   const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+
+  const filteredResults = useMemo(() => {
+    if (query.trim() === '') return [];
+    return products.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [query]);
 
   if (!isOpen) return null;
+
+  const handleResultClick = (productId: string) => {
+    setQuery('');
+    onClose();
+    navigate(`/product/${productId}`);
+  };
 
   return (
     <>
@@ -33,6 +49,22 @@ export default function SearchPanel({ isOpen, onClose }: SearchPanelProps) {
           <button className="search-panel-cancel" onClick={onClose}>
             Cancel
           </button>
+        </div>
+
+        <div className="search-panel-results">
+          {query.trim() !== '' && filteredResults.length === 0 && (
+            <p className="search-panel-empty">No results found for "{query}"</p>
+          )}
+          {filteredResults.map((item) => (
+            <div
+              key={item.id}
+              className="search-panel-result-item"
+              onClick={() => handleResultClick(item.id)}
+            >
+              <img src={item.image} alt={item.name} className="search-panel-result-image" />
+              <span>{item.name}</span>
+            </div>
+          ))}
         </div>
 
         <div className="search-panel-filters">

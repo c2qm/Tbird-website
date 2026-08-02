@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import MegaMenu from './MegaMenu';
 import Sidebar from './Sidebar';
@@ -18,6 +18,7 @@ export default function Navbar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { totalItems } = useCart();
   const { user, openAuthModal, logout } = useAuth();
   const { totalItems: wishlistCount } = useWishlist();
@@ -30,11 +31,18 @@ export default function Navbar() {
     }
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="navbar-header" onMouseLeave={() => setActiveCategory(null)}>
       <div className="navbar-container">
         <div className="navbar-logo">
-          <Link to="/">
+          <Link to="/" onClick={handleLogoClick}>
             <img src={logo} alt="T-Bird Logo" />
           </Link>
         </div>

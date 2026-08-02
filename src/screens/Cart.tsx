@@ -7,7 +7,7 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="cart-page cart-empty">
+      <div className="cart-page cart-empty page-fade-in">
         <h1>Your cart is empty</h1>
         <Link to="/" className="cart-empty-link">
           Continue Shopping
@@ -17,13 +17,13 @@ export default function Cart() {
   }
 
   return (
-    <div className="cart-page">
+    <div className="cart-page page-fade-in">
       <h1 className="cart-title">Shopping Cart</h1>
 
       <div className="cart-layout">
         <div className="cart-items">
           {items.map(({ product, quantity }) => (
-            <div className="cart-item" key={product.id}>
+            <div className="cart-item stagger-item" key={product.id}>
               <img src={product.image} alt={product.name} className="cart-item-image" />
 
               <div className="cart-item-info">

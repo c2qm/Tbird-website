@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import App from '../App';
 import Hero from '../screens/Hero';
 import Category from '../screens/Category';
@@ -7,7 +7,7 @@ import Cart from '../screens/Cart';
 import Checkout from '../screens/Checkout';
 import Wishlist from '../screens/Wishlist';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <App />,

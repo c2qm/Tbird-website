@@ -77,18 +77,18 @@
 
 .auth-submit {
   margin-top: 8px;
-  background: var(--color-accent);
-  color: #0f0f0f;
+  background: var(--color-text);
+  color: var(--color-primary);
   border: none;
   border-radius: var(--radius-pill);
   padding: 12px;
   font-family: var(--font-bold);
   font-size: 0.95rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background-color 0.2s ease;
 }
 .auth-submit:hover {
-  opacity: 0.85;
+  background: var(--color-accent);
 }
 
 .auth-switch {

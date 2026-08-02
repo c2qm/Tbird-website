@@ -9,7 +9,7 @@ export default function Wishlist() {
 
   if (items.length === 0) {
     return (
-      <div className="wishlist-page wishlist-empty">
+      <div className="wishlist-page wishlist-empty page-fade-in">
         <h1>Your wishlist is empty</h1>
         <Link to="/" className="wishlist-empty-link">
           Discover Products
@@ -19,12 +19,12 @@ export default function Wishlist() {
   }
 
   return (
-    <div className="wishlist-page">
+    <div className="wishlist-page page-fade-in">
       <h1 className="wishlist-title">My Wishlist</h1>
 
       <div className="wishlist-grid">
         {items.map((product) => (
-          <div className="wishlist-card" key={product.id}>
+          <div className="wishlist-card stagger-item" key={product.id}>
             <button
               className="wishlist-remove-btn"
               onClick={() => removeFromWishlist(product.id)}

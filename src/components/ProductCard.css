@@ -26,26 +26,26 @@
 }
 
 .product-card-add-btn {
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
   background: var(--color-text);
   color: var(--color-primary);
   border: none;
   border-radius: var(--radius-pill);
   padding: 10px;
   font-family: var(--font-regular);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.product-card:hover .product-card-add-btn {
-  opacity: 1;
-  transform: translateY(0);
+.product-card-add-btn:hover {
+  background-color: var(--color-accent);
+}
+
+.product-card-add-btn:active {
+  transform: scale(0.95);
 }
 
 .product-card-name {
@@ -58,11 +58,4 @@
   font-family: var(--font-light);
   color: var(--color-text-muted);
   font-size: 0.85rem;
-}
-
-@media (max-width: 640px) {
-  .product-card-add-btn {
-    opacity: 1;
-    transform: none;
-  }
 }

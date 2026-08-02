@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css';
 import { categories } from '../data/categories';
+import { useAuth } from '../context/AuthContext';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(null);
+  const { openAuthModal } = useAuth();
 
   const activeCategory = categories.find((c) => c.slug === activeCategorySlug) ?? null;
 
@@ -20,6 +22,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const handleClose = () => {
     setActiveCategorySlug(null);
     onClose();
+  };
+
+  const handleSignInClick = () => {
+    handleClose();
+    openAuthModal('login');
   };
 
   return (
@@ -83,7 +90,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
 
         <div className="sidebar-footer">
-          <button className="sidebar-footer-btn">Sign In</button>
+          <button className="sidebar-footer-btn" onClick={handleSignInClick}>Sign In</button>
           <button className="sidebar-footer-btn">Help & Support</button>
         </div>
       </aside>

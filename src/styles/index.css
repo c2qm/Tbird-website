@@ -2,11 +2,57 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  width: 100%;
-  overflow-x: hidden;
+*:focus,
+*:active,
+*:focus-visible {
+  outline: none;
+}
+
+button, a, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  border: none;
+}
+
+button {
+  letter-spacing: 1px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-fade-in {
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.stagger-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.stagger-item:nth-child(6) { animation-delay: 0.3s; }
+
+button:focus, 
+a:focus, 
+input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 @font-face {
@@ -59,4 +105,5 @@ body {
   background: var(--gradient-bg);
   color: var(--color-text);
   line-height: 1.6;
+  letter-spacing: 1px;
 }

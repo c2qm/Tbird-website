@@ -60,7 +60,7 @@ export default function Checkout() {
 
   if (orderPlaced) {
     return (
-      <div className="checkout-page checkout-success">
+      <div className="checkout-page checkout-success page-fade-in">
         <div className="checkout-success-icon">✓</div>
         <h1>Order Confirmed</h1>
         <p>Thank you! Your order has been placed successfully.</p>
@@ -74,7 +74,7 @@ export default function Checkout() {
 
   if (items.length === 0) {
     return (
-      <div className="checkout-page checkout-empty">
+      <div className="checkout-page checkout-empty page-fade-in">
         <h1>Your cart is empty</h1>
         <Link to="/" className="checkout-empty-link">
           Continue Shopping
@@ -84,7 +84,7 @@ export default function Checkout() {
   }
 
   return (
-    <div className="checkout-page">
+    <div className="checkout-page page-fade-in">
       <h1 className="checkout-title">Checkout</h1>
 
       {!user && (
@@ -209,7 +209,7 @@ export default function Checkout() {
 
           <div className="checkout-summary-items">
             {items.map(({ product, quantity }) => (
-              <div className="checkout-summary-item" key={product.id}>
+              <div className="checkout-summary-item stagger-item" key={product.id}>
                 <img src={product.image} alt={product.name} />
                 <div className="checkout-summary-item-info">
                   <span>{product.name}</span>

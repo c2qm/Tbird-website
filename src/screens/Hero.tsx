@@ -1,9 +1,10 @@
 import HeroSlider from '../components/HeroSlider';
 import SplitBanner from '../components/SplitBanner';
-import heroImage1 from '../assets/images/image1.webp';
-import heroImage2 from '../assets/images/image2.webp';
-import sportBannerImage from '../assets/images/image1.webp';
-import medicalBannerImage from '../assets/images/image2.webp';
+import heroImage1 from '../assets/images/sliders/1.webp';
+import heroImage2 from '../assets/images/sliders/2.webp';
+import sportBannerImage from '../assets/images/sliders/3.webp';
+import medicalBannerImage from '../assets/images/sliders/5.webp';
+
 const heroSlides = [
   {
     id: 1,
@@ -41,9 +42,9 @@ const splitBannerItems = [
 
 export default function Hero() {
   return (
-    <>
+    <div className="page-fade-in">
       <HeroSlider slides={heroSlides} />
       <SplitBanner items={splitBannerItems} />
-    </>
+    </div>
   );
 }

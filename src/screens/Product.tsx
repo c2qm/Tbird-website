@@ -19,7 +19,7 @@ export default function Product() {
 
   if (!product) {
     return (
-      <div className="product-page product-not-found">
+      <div className="product-page product-not-found page-fade-in">
         <h1>Product not found</h1>
         <Link to="/" className="product-back-link">
           Back to shop
@@ -49,7 +49,7 @@ export default function Product() {
   };
 
   return (
-    <div className="product-page">
+    <div className="product-page page-fade-in">
       <div className="product-detail">
         <div className="product-detail-image">
           <img src={product.image} alt={product.name} />
@@ -105,7 +105,9 @@ export default function Product() {
           <h2 className="product-related-title">You may also like</h2>
           <div className="product-related-grid">
             {relatedProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <div key={p.id} className="stagger-item">
+                <ProductCard product={p} />
+              </div>
             ))}
           </div>
         </div>

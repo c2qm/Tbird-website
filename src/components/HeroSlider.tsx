@@ -19,22 +19,41 @@ interface HeroSliderProps {
   autoPlayInterval?: number;
 }
 
+const RING_RADIUS = 20;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
+
 export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
-    if (isPlaying) {
-      timerRef.current = setInterval(() => {
+    if (!isPlaying) return;
+
+    let startTime: number | null = null;
+    let rafId: number;
+
+    setProgress(0);
+
+    const tick = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const pct = Math.min((elapsed / autoPlayInterval) * 100, 100);
+      setProgress(pct);
+
+      if (pct < 100) {
+        rafId = requestAnimationFrame(tick);
+      } else {
         setActiveIndex((prev) => (prev + 1) % slides.length);
-      }, autoPlayInterval);
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      }
     };
-  }, [isPlaying, slides.length, autoPlayInterval]);
+
+    rafId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(rafId);
+  }, [isPlaying, activeIndex, autoPlayInterval, slides.length]);
 
   const goToSlide = (index: number) => {
     setActiveIndex(index);
@@ -61,9 +80,32 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 50;
+
+    if (deltaX > threshold) {
+      goPrev();
+    } else if (deltaX < -threshold) {
+      goNext();
+    }
+    touchStartX.current = null;
+  };
+
+  const dashOffset = RING_CIRCUMFERENCE * (1 - progress / 100);
+
   return (
     <section className="hero-slider">
-      <div className="hero-track-wrapper">
+      <div
+        className="hero-track-wrapper"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="hero-track"
           style={{
@@ -105,22 +147,47 @@ export default function HeroSlider({ slides, autoPlayInterval = 5000 }: HeroSlid
         <SliderDots total={slides.length} activeIndex={activeIndex} onDotClick={goToSlide} />
 
         <div className="hero-nav-buttons">
-          <IconButton
-            ariaLabel={isPlaying ? 'Pause slider' : 'Play slider'}
-            onClick={togglePlay}
-            icon={
-              isPlaying ? (
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <rect x="6" y="4" width="4" height="16" />
-                  <rect x="14" y="4" width="4" height="16" />
-                </svg>
-              ) : (
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <polygon points="6 4 20 12 6 20" />
-                </svg>
-              )
-            }
-          />
+          <div className="hero-pause-wrapper">
+            {isPlaying && (
+              <svg className="hero-progress-ring" width="44" height="44" viewBox="0 0 44 44">
+                <circle
+                  className="hero-progress-ring-track"
+                  cx="22"
+                  cy="22"
+                  r={RING_RADIUS}
+                  fill="none"
+                  strokeWidth="2"
+                />
+                <circle
+                  className="hero-progress-ring-fill"
+                  cx="22"
+                  cy="22"
+                  r={RING_RADIUS}
+                  fill="none"
+                  strokeWidth="2"
+                  strokeDasharray={RING_CIRCUMFERENCE}
+                  strokeDashoffset={dashOffset}
+                  transform="rotate(-90 22 22)"
+                />
+              </svg>
+            )}
+            <IconButton
+              ariaLabel={isPlaying ? 'Pause slider' : 'Play slider'}
+              onClick={togglePlay}
+              icon={
+                isPlaying ? (
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <polygon points="6 4 20 12 6 20" />
+                  </svg>
+                )
+              }
+            />
+          </div>
           <IconButton
             ariaLabel="Previous slide"
             onClick={goPrev}
