@@ -75,6 +75,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
 
             <div className="sidebar-submenu">
+              {activeCategory && (
+                <Link
+                  to={`/category/${activeCategory.slug}`}
+                  className="sidebar-link sidebar-link-all"
+                  onClick={handleClose}
+                >
+                  All {activeCategory.name}
+                </Link>
+              )}
               {activeCategory?.subcategories.map((sub) => (
                 <Link
                   key={sub.slug}
