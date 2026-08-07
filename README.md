@@ -1,6 +1,6 @@
 # Tbird Website
 
-Language Journey is a mobile app to log study sessions and analyze skill progress through visual statistics.
+Tbird is a modern, responsive e-commerce web application designed for sports and medical apparel.
 
 ## Tech Stack
  * React
