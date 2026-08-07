@@ -1,4 +1,4 @@
-# Language Journey
+# Tbird Website
 
 Language Journey is a mobile app to log study sessions and analyze skill progress through visual statistics.
 
